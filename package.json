@@ -1,0 +1,35 @@
+{
+  "name": "escape-room",
+  "version": "0.1.0",
+  "description": "",
+  "license": "MIT",
+  "scripts": {
+    "start": "vite",
+    "preview": "vite preview",
+    "build": "vite build",
+    "typecheck": "tsc --noEmit",
+    "typewatch": "tsc --noEmit --watch"
+  },
+  "dependencies": {
+    "@react-three/drei": "^9.61.3",
+    "@react-three/fiber": "^8.12.0",
+    "@react-three/rapier": "^0.14.0",
+    "@react-three/xr": "^5.4.1",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "three": "^0.151.2"
+  },
+  "devDependencies": {
+    "@types/react": "^18.0.32",
+    "@types/react-dom": "^18.0.11",
+    "@types/three": "^0.150.1",
+    "babel-preset-nano-react-app": "^0.1.0",
+    "typescript": "^5.0.3",
+    "vite": "^3.2.1"
+  },
+  "babel": {
+    "presets": [
+      "nano-react-app"
+    ]
+  }
+}
