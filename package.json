@@ -11,10 +11,11 @@
     "typewatch": "tsc --noEmit --watch"
   },
   "dependencies": {
-    "@react-three/drei": "^9.61.3",
-    "@react-three/fiber": "^8.12.0",
-    "@react-three/rapier": "^0.14.0",
-    "@react-three/xr": "^5.4.1",
+    "@react-three/drei": "^9.71.0",
+    "@react-three/fiber": "^8.13.0",
+    "@react-three/flex": "^1.0.1",
+    "@react-three/rapier": "^1.0.1",
+    "@react-three/xr": "^5.5.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "three": "^0.151.2"
