@@ -17,4 +17,4 @@ export function Model(props: any) {
   )
 }
 
-useGLTF.preload('/picture-transformed.glb')
+useGLTF.preload('/res/picture-transformed.glb')

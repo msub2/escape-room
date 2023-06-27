@@ -16,4 +16,4 @@ export function Model(props: any) {
   )
 }
 
-useGLTF.preload('/hammer-transformed.glb')
+useGLTF.preload('/res/hammer-transformed.glb')

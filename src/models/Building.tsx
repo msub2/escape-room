@@ -72,4 +72,4 @@ export function Model(props: any) {
   );
 }
 
-useGLTF.preload("/res/building.glb");
+useGLTF.preload("/res/building-transformed.glb");

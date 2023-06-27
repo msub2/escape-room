@@ -16,4 +16,4 @@ export function Model(props: any) {
   )
 }
 
-useGLTF.preload('/crowbar-transformed.glb')
+useGLTF.preload('/res/crowbar-transformed.glb')

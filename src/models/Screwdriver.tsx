@@ -16,4 +16,4 @@ export function Model(props: any) {
   )
 }
 
-useGLTF.preload('/screwdriver-transformed.glb')
+useGLTF.preload('/res/screwdriver-transformed.glb')

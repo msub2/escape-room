@@ -1,29 +1,31 @@
-import React, { Suspense } from "react";
+import React, { Suspense, useEffect } from "react";
 import { VRButton, XR } from '@react-three/xr';
-import { Canvas, useFrame } from '@react-three/fiber';
+import { Canvas } from '@react-three/fiber';
 import { Physics, RigidBody } from "@react-three/rapier";
-import { Model as Building } from './components/Building';
+import { Model as Building } from './models/Building';
 import Player from './components/Player';
 import Environment from "./components/Environment";
-import Inventory from "./components/ui/Inventory";
+import { Gamestate } from "./components/Gamestate";
 
-export default () => (
-  <>
-    <VRButton />
-    <Canvas>
-      <Environment />
-      <Suspense>
-        <Physics debug={true}>
-          <XR>
-            <RigidBody type="fixed" colliders="trimesh">
-              <Building />
-            </RigidBody>
-            <pointLight position={[0, 1, 0]} intensity={.1} />
-            <Player />
-            <Inventory position={[0, 2, -2]}/>
-          </XR>
-        </Physics>
-      </Suspense>
-    </Canvas>
-  </>
-);
+export default () => {
+  return (
+    <>
+      <Gamestate />
+      <VRButton />
+      <Canvas>
+        <Environment />
+        <Suspense>
+          <Physics debug={true}>
+            <XR>
+              <RigidBody type="fixed" colliders="trimesh">
+                <Building />
+              </RigidBody>
+              <pointLight position={[0, 1, 0]} intensity={.1} />
+              <Player />
+            </XR>
+          </Physics>
+        </Suspense>
+      </Canvas>
+    </>
+  )
+};
