@@ -1,9 +1,9 @@
 import React, { Suspense, useRef } from 'react'
+import { MeshBasicMaterial, Color } from 'three';
 import { Flex, Box } from '@react-three/flex'
 import { Interactive, XRInteractionEvent } from '@react-three/xr'
-import { MeshBasicMaterial, Color } from 'three';
-import { useGamestate } from '../Gamestate';
 import { Text } from '@react-three/drei';
+import { useGamestate } from '../Gamestate';
 
 type InventoryItemProps = {
   slot: number;
@@ -31,8 +31,6 @@ const InventoryItem = (props: InventoryItemProps) => {
   const onSelect = (event: XRInteractionEvent) => {
     if (!items[slot].collected) return;
 
-    // Set active property to true on given item slot, set all others false
-    items.forEach((item, i) => item.active = i == slot ? true : false);
     setActiveItem(items[slot]);
   }
 

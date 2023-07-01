@@ -1,13 +1,13 @@
-import { Group, Vector3 } from 'three';
 import React, { useEffect, useRef, useState } from 'react';
+import { Group } from 'three';
 import { createPortal, useFrame } from '@react-three/fiber';
 import { Controllers, Hands, useController, useXR } from '@react-three/xr';
 import { PointerLockControls } from '@react-three/drei';
-import MovementControls from './MovementControls';
 import { RigidBody, CapsuleCollider, RapierRigidBody } from "@react-three/rapier";
+import { create } from 'zustand';
+import MovementControls from './MovementControls';
 import { Inventory } from "../components/ui/Inventory";
 import { useGamestate } from './Gamestate';
-import { create } from 'zustand';
 
 interface PlayerState {
   hoveringInteractable: boolean;
@@ -37,13 +37,12 @@ const RightController = () => {
 const Player = () => {
   const { player, isPresenting } = useXR();
   const right = useController('right');
-  const activeItem = useGamestate(state => state.items.find(item => item.active));
+  const activeItem = useGamestate(state => state.activeItem);
   const hoveringInteractable = usePlayerStore(state => state.hoveringInteractable)
   const camera = player.children[0];
   const origin = useRef<RapierRigidBody>(null);
   const group = useRef<Group>(null);
   const [height, setHeight] = useState(1.6);
-  const items = useGamestate(state => state.items);
 
   useEffect(() => {
     if (isPresenting) camera.position.set(0, 0, 0);
