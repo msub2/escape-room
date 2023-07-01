@@ -48,7 +48,6 @@ const Player = () => {
   useEffect(() => {
     if (isPresenting) camera.position.set(0, 0, 0);
     else camera.position.set(0, height, 0);
-    console.log(items);
   }, [isPresenting]);
 
   useFrame(() => {
@@ -69,7 +68,7 @@ const Player = () => {
         <CapsuleCollider args={[.8, .2]} />
       </RigidBody>
       <Controllers rayMaterial={{ color: hoveringInteractable ? 0x0000ff : 0xffffff }} />
-      <Hands />
+      {/* <Hands /> */}
       {/* <PointerLockControls /> */}
       <MovementControls origin={origin} physics={true} speed={100} />
       <LeftController />

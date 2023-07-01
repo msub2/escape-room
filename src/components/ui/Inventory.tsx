@@ -1,30 +1,37 @@
-import React, { useRef, useState } from 'react'
+import React, { Suspense, useRef } from 'react'
 import { Flex, Box } from '@react-three/flex'
 import { Interactive, XRInteractionEvent } from '@react-three/xr'
 import { MeshBasicMaterial, Color } from 'three';
 import { useGamestate } from '../Gamestate';
+import { Text } from '@react-three/drei';
 
 type InventoryItemProps = {
   slot: number;
 }
 
 const InventoryItem = (props: InventoryItemProps) => {
-  const item = useGamestate((state) => state.items[props.slot])
+  const { slot } = props;
+  const items = useGamestate((state) => state.items)
+  const setActiveItem = useGamestate((state) => state.setActiveItem);
+  const setHoveredItem = useGamestate((state) => state.setHoveredItem);
   const planeMaterial = useRef<MeshBasicMaterial>(null);
 
   const onHover = (event: XRInteractionEvent) => {
     planeMaterial.current!.color = new Color("grey");
+    setHoveredItem(items[slot].name);
   }
 
   const onBlur = (event: XRInteractionEvent) => {
     planeMaterial.current!.color = new Color("black");
+    setHoveredItem("");
   }
 
   const onSelect = (event: XRInteractionEvent) => {
-    if (!item) return;
+    if (!items[slot]) return;
 
-    // Set item active
-    // TODO: FIX
+    // Set active property to true on given item slot, set all others false
+    items.forEach((item, i) => item.active = i == slot ? true : false);
+    setActiveItem(items[slot]);
   }
 
   return (
@@ -40,6 +47,9 @@ const InventoryItem = (props: InventoryItemProps) => {
 }
 
 export function Inventory(props: any) {
+  const items = useGamestate(state => state.items);
+  const hoveredItem = useGamestate(state => state.hoveredItem);
+
   return (
     <Flex
       position={props.position}
@@ -48,15 +58,16 @@ export function Inventory(props: any) {
       flexWrap="wrap"
       size={[3.6, 1, 0]}
     >
-      <InventoryItem slot={0} />
-      <InventoryItem slot={1} />
-      <InventoryItem slot={2} />
-      <InventoryItem slot={3} />
-      <InventoryItem slot={4} />
-      <InventoryItem slot={5} />
-      <InventoryItem slot={6} />
-      <InventoryItem slot={7} />
-      <InventoryItem slot={8} />
+      <Suspense>
+        <Box>
+          <Text fontSize={.5} anchorX="center" anchorY="middle" position={[.5, 1.5, 0]}>
+            {hoveredItem}
+          </Text>
+        </Box>
+      </Suspense>
+      {items.map((item, i) =>
+        <InventoryItem key={item.name} slot={i} />
+      )}
     </Flex>
   )
 }
