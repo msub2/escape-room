@@ -59,11 +59,9 @@ export function Inventory(props: any) {
       size={[3.6, 1, 0]}
     >
       <Suspense>
-        <Box>
-          <Text fontSize={.5} anchorX="center" anchorY="middle" position={[.5, 1.5, 0]}>
-            {hoveredItem}
-          </Text>
-        </Box>
+        <Text fontSize={.5} anchorX="center" position={[1.8, .5, 0]}>
+          {hoveredItem}
+        </Text>
       </Suspense>
       {items.map((item, i) =>
         <InventoryItem key={item.name} slot={i} />
