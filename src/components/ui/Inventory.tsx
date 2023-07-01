@@ -18,24 +18,34 @@ const InventoryItem = (props: InventoryItemProps) => {
 
   const onHover = (event: XRInteractionEvent) => {
     planeMaterial.current!.color = new Color("grey");
+    if (!items[slot].collected) return;
     setHoveredItem(items[slot].name);
   }
 
   const onBlur = (event: XRInteractionEvent) => {
     planeMaterial.current!.color = new Color("black");
+    if (!items[slot].collected) return;
     setHoveredItem("");
   }
 
   const onSelect = (event: XRInteractionEvent) => {
-    if (!items[slot]) return;
+    if (!items[slot].collected) return;
 
     // Set active property to true on given item slot, set all others false
     items.forEach((item, i) => item.active = i == slot ? true : false);
     setActiveItem(items[slot]);
   }
 
+  const onSelectStart = () => {
+    planeMaterial.current!.color = new Color("lightgrey");
+  }
+
+  const onSelectEnd = () => {
+    planeMaterial.current!.color = new Color("grey");
+  }
+
   return (
-    <Interactive onHover={onHover} onBlur={onBlur} onSelect={onSelect}>
+    <Interactive onHover={onHover} onBlur={onBlur} onSelect={onSelect} onSelectStart={onSelectStart} onSelectEnd={onSelectEnd}>
       <Box centerAnchor margin={.1}>
         <mesh>
           <planeGeometry args={[1, 1]} />
