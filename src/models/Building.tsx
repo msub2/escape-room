@@ -13,7 +13,7 @@ export function Model(props: any) {
   // @ts-ignore
   const { nodes, materials } = useGLTF("/res/building-transformed.glb");
   return (
-    <group {...props} dispose={null} scale={[.03, .03, .03]}>
+    <group {...props} dispose={null} scale={props.scale}>
       <group rotation={[-Math.PI / 2, 0, 0]}>
         <group
           position={[-33.48, -590.92, 128.96]}
