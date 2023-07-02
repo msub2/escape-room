@@ -34,20 +34,27 @@ const RightController = () => {
   return createPortal(<></>, right);
 }
 
-const Player = () => {
+const Player = (props: any) => {
+  const { position } = props;
   const { player, isPresenting } = useXR();
   const right = useController('right');
   const activeItem = useGamestate(state => state.activeItem);
   const hoveringInteractable = usePlayerStore(state => state.hoveringInteractable)
   const camera = player.children[0];
   const origin = useRef<RapierRigidBody>(null);
-  const group = useRef<Group>(null);
   const [height, setHeight] = useState(1.6);
 
   useEffect(() => {
     if (isPresenting) camera.position.set(0, 0, 0);
     else camera.position.set(0, height, 0);
   }, [isPresenting]);
+
+  useEffect(() => {
+    // Delay letting forces act on the player until other static meshes have loaded
+    setTimeout(() => {
+      origin.current?.lockTranslations(false, true);
+    }, 1000);
+  }, []);
 
   useFrame(() => {
     if (!origin.current) return;
@@ -62,13 +69,13 @@ const Player = () => {
   });
 
   return (
-    <group position={[0, .8, 0]} ref={group}>
-      <RigidBody lockRotations={true} ref={origin}>
+    <group position={position}>
+      <RigidBody lockRotations={true} ref={origin} lockTranslations={true}>
         <CapsuleCollider args={[.8, .2]} />
       </RigidBody>
       <Controllers rayMaterial={{ color: hoveringInteractable ? 0x0000ff : 0xffffff }} />
       {/* <Hands /> */}
-      {/* <PointerLockControls /> */}
+      <PointerLockControls />
       <MovementControls origin={origin} physics={true} speed={100} />
       <LeftController />
       <RightController />
