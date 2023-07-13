@@ -8,6 +8,7 @@ import Player from './components/Player';
 import Environment from "./components/Environment";
 import { Gamestate } from "./components/Gamestate";
 import { Screwdriver } from "./components/items/Screwdriver";
+import { CombinationPadlock } from "./components/items/Puzzles/CombinationPadlock";
 
 export default () => {
   return (
@@ -26,6 +27,7 @@ export default () => {
               <Player position={[1, .8, 0]} />
               <Screwdriver />
               <Door position={[-.35, 0, .05]} scale={[1, 1, 1.1]} />
+              <CombinationPadlock />
             </XR>
           </Physics>
         </Suspense>
